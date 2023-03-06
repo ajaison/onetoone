@@ -19,8 +19,12 @@ public class EmployeeHttpController {
     }
 
     @GetMapping("/employees")
-    Collection<Employee> all() {
-        return this.service.all();
+    public ResponseEntity<Collection<Employee>> all() {
+        Collection<Employee> employees = this.service.getAllEmployees();
+        if (employees == null || employees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/employees/{name}")

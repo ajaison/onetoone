@@ -28,7 +28,7 @@ public class OnetooneApplication {
 
 	@Bean
 	ApplicationListener <ApplicationReadyEvent> readyEventApplicationListener (EmployeeService es){
-		return event -> es.all().forEach(System.out::println);
+		return event -> es.getAllEmployees().forEach(System.out::println);
 	}
 }
 
@@ -47,7 +47,7 @@ class EmployeeService{
 		return this.template.queryForObject("select * from employees where name =?", this.employeeRowMapper, name);
 	}
 
-	Collection <Employee> all (){
+	Collection <Employee> getAllEmployees (){
 		return this.template.query("select * from employees", this.employeeRowMapper);
 	}
 }
